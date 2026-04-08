@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Larry's Performance Hub</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        body { background: #0f172a; color: #38bdf8; font-family: sans-serif; text-align: center; }
+        .gauge { font-size: 5rem; font-weight: bold; margin-top: 20vh; }
+        .label { font-size: 1.5rem; color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <div class="label">CPU TEMPERATURE</div>
+    <div id="temp" class="gauge">--°C</div>
+    <div class="label" style="margin-top: 20px;">SYSTEM LOAD</div>
+    <div id="load" class="gauge" style="font-size: 3rem;">--%</div>
+
+    <script>
+        const socket = io();
+        socket.on('stats', (data) => {
+            document.getElementById('temp').innerText = data.temp + "°C";
+            document.getElementById('load').innerText = data.cpu + "%";
+        });
+    </script>
+</body>
+</html>
